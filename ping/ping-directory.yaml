@@ -9,7 +9,7 @@ pingdirectory-admin:
   enabled: true
  
   image:
-    repository: pingidentity/pingdirectory
+    repository: pingidentity
     tag: "latest"
     pullPolicy: IfNotPresent
  
