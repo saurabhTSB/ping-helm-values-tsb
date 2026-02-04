@@ -1,0 +1,55 @@
+global:
+  ingress:
+    enabled: false
+  license:
+    secret:
+      devOps: devops-secret
+ 
+pingdirectory-admin:
+  enabled: true
+ 
+  image:
+    repository: pingidentity/pingdirectory
+    tag: "latest"
+    pullPolicy: IfNotPresent
+ 
+  license:
+    secret:
+      name: pingdirectory-license
+      items:
+        pingdirectory.lic: /opt/in/instance/server/default/conf/pingdirectory.lic
+ 
+  envs:
+    SERVER_PROFILE_URL: "https://github.com/saurabhTSB/ping-server-profile-tsb.git"
+    SERVER_PROFILE_PATH: "baseline/pingdirectory"
+    SERVER_PROFILE_BRANCH: "master"
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+ 
+  workload:
+    type: Deployment
+ 
+  service:
+    https:
+      enabled: true
+      type: NodePort
+      servicePort: 1443
+      containerPort: 1443
+      nodePort: 31443
+    ldap:
+      enabled: true
+      type: NodePort
+      servicePort: 1389
+      containerPort: 1389
+      nodePort: 31389
+    ldaps:
+      enabled: true
+      type: NodePort
+      servicePort: 1636
+      containerPort: 1636
+      nodePort: 31636
+    rest:
+      enabled: true
+      type: NodePort
+      servicePort: 2443
+      containerPort: 2443
+      nodePort: 32443
