@@ -1,33 +1,55 @@
 global:
   ingress:
-    enabled: false
+    enabled: true
   license:
     secret:
       devOps: devops-secret
- 
-pingdirectory-admin:
+
+pingdirectory:
   enabled: true
- 
+
   image:
     repository: pingidentity
     tag: "latest"
     pullPolicy: IfNotPresent
- 
-  license:
-    secret:
-      name: pingdirectory-license
+
+  secretVolumes:
+    pingdirectory-license:
       items:
-        pingdirectory.lic: /opt/in/instance/server/default/conf/pingdirectory.lic
- 
+        pingdirectory.lic: /run/secrets/pingdirectory.lic
+
   envs:
     SERVER_PROFILE_URL: "https://github.com/saurabhTSB/ping-server-profile-tsb.git"
     SERVER_PROFILE_PATH: "baseline/pingdirectory"
     SERVER_PROFILE_BRANCH: "master"
     PING_IDENTITY_ACCEPT_EULA: "YES"
- 
+    MAKELDIF_USERS: "100"
+
+  container:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 2Gi
+      limits:
+        cpu: 2
+        memory: 8Gi
+
   workload:
-    type: Deployment
- 
+    type: StatefulSet
+    podSecurityContext:
+      fsGroup: 9031
+    statefulSet:
+      podManagementPolicy: OrderedReady
+      persistentvolume:
+        enabled: true
+        volumes:
+          out-dir:
+            mountPath: /opt/out
+            persistentVolumeClaim:
+              resources:
+                requests:
+                  storage: 8Gi
+
   service:
     https:
       enabled: true
@@ -53,3 +75,10 @@ pingdirectory-admin:
       servicePort: 2443
       containerPort: 2443
       nodePort: 32443
+
+pingdataconsole:
+  enabled: true
+  defaultLogin:
+    server:
+      host: ping-pingdirectory
+      port: 636
