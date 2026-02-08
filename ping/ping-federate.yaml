@@ -30,8 +30,10 @@ pingfederate-admin:
   envs:
     SERVER_PROFILE_URL: "https://github.com/saurabhTSB/ping-server-profile-tsb.git"
     SERVER_PROFILE_PATH: "baseline/pingfederate"
-    SERVER_PROFILE_BRANCH: "main"
+    SERVER_PROFILE_BRANCH: "master"
     PING_IDENTITY_ACCEPT_EULA: "YES"
+    PING_IDENTITY_PASSWORD: "Skp@123458"
+    PF_ADMIN_USERNAME: "saurabh"
     PF_ADMIN_PUBLIC_HOSTNAME: "localhost:9999"
     PF_ADMIN_PUBLIC_BASEURL: "https://localhost:9999"
 
