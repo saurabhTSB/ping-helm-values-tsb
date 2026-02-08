@@ -32,8 +32,8 @@ pingfederate-admin:
     SERVER_PROFILE_PATH: "baseline/pingfederate"
     SERVER_PROFILE_BRANCH: "master"
     PING_IDENTITY_ACCEPT_EULA: "YES"
-    PING_IDENTITY_PASSWORD: "Skp@123458"
-    PF_ADMIN_USERNAME: "saurabh"
+    PING_IDENTITY_PASSWORD: "2FederateM0re"
+    PF_ADMIN_USERNAME: "Administrator"
     PF_ADMIN_PUBLIC_HOSTNAME: "localhost:9999"
     PF_ADMIN_PUBLIC_BASEURL: "https://localhost:9999"
 
